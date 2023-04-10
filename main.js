@@ -10,6 +10,11 @@ window.initMap = function () {
   const marker = new google.maps.Marker({
     position: coords,
     map,
+    icon: "./icons/marker.png",
+  });
+  google.maps.event.addListener(marker, "click", () => {
+    map.setCenter(coords);
+    map.setZoom(14);
   });
   searchGoogleMap();
 };
