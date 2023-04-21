@@ -1,7 +1,7 @@
 const placeInput = document.getElementById("place-input");
 let map;
 let autocomplete;
-let propiedades = [
+let properties = [
   {
     id: 1,
     nombre: "Casa en la Condesa",
@@ -162,8 +162,8 @@ let propiedades = [
 
 window.initMap = function () {
   firstPositionMap();
-  const addMarker = (propiedades) => {
-    propiedades.forEach((propiedad) => {
+  const addMarker = (properties) => {
+    properties.forEach((propiedad) => {
       const marker = new google.maps.Marker({
         position: propiedad.coords,
         map,
@@ -175,7 +175,7 @@ window.initMap = function () {
       });
     });
   };
-  addMarker(propiedades);
+  addMarker(properties);
   searchGoogleMap();
 };
 
