@@ -182,9 +182,11 @@ window.initMap = function () {
 const searchGoogleMap = () => {
   autocomplete = new google.maps.places.Autocomplete(placeInput);
   autocomplete.addListener("place_changed", () => {
-    const place = autocomplete.getPlace();
-    map.setCenter(place.geometry.location);
-    map.setZoom(13);
+    if (placeInput.value !== "") {
+      const place = autocomplete.getPlace();
+      map.setCenter(place.geometry.location);
+      map.setZoom(13);
+    }
   });
 };
 const firstPositionMap = () => {
