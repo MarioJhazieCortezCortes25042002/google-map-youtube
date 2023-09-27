@@ -162,15 +162,19 @@ let properties = [
 
 window.initMap = function () {
   firstPositionMap();
+  let infoWindow = new google.maps.InfoWindow();
   const addMarker = (properties) => {
-    properties.forEach((propiedad) => {
+    properties.forEach((propertie) => {
+      const informationCard = createInfoWindow(propertie);
       const marker = new google.maps.Marker({
-        position: propiedad.coords,
+        position: propertie.coords,
         map,
         icon: "./icons/marker.png",
       });
       google.maps.event.addListener(marker, "click", () => {
-        map.setCenter(propiedad.coords);
+        infoWindow.setContent(informationCard);
+        infoWindow.open(map, marker);
+        map.setCenter(propertie.coords);
         map.setZoom(14);
       });
     });
@@ -195,4 +199,17 @@ const firstPositionMap = () => {
     zoom: 6,
     center: coords,
   });
+};
+
+const createInfoWindow = (propertie) => {
+  return `
+  <div>
+    <h3 class="text-reset py-1">${propertie.nombre}</h3>
+    <div class="d-flex justify-content-space-between">
+      <p><b>Cuartos: </b>${propertie.cuartos}</p>
+      <p><b>Baños: </b>${propertie.banios}</p>
+    </div>
+    <p><b>Teléfono: </b>${propertie.telefono}</p>
+  </div>
+  `;
 };
