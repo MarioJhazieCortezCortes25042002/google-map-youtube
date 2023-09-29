@@ -179,6 +179,7 @@ window.initMap = function () {
       });
     });
   };
+  getYourApproximateLocation();
   addMarker(properties);
   searchGoogleMap();
 };
@@ -212,4 +213,30 @@ const createInfoWindow = (propertie) => {
     <p><b>Teléfono: </b>${propertie.telefono}</p>
   </div>
   `;
+};
+const getYourApproximateLocation = () => {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      ({ coords: { latitude, longitude } }) => {
+        const coords = {
+          lat: latitude,
+          lng: longitude,
+        };
+        map.setCenter(coords);
+        map.setZoom(13);
+        new google.maps.Marker({
+          position: coords,
+          map: map,
+          icon: "./position.svg",
+        });
+      },
+      () => {
+        alert(
+          "Tu navegador esta bien, pero ocurrio un error al obtener tu ubicación"
+        );
+      }
+    );
+  } else {
+    alert("Tu navegador no cuenta con localizacion ");
+  }
 };
